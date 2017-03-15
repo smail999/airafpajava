@@ -25,7 +25,7 @@ public class AccessBackofficeDAO extends DAO{
         
         boolean succee = false;
         
-        Eleve el = (Eleve) obj;
+        AccessBackoffice el = (AccessBackoffice) obj;
         
        if(this.bddmanager.connect()){
             
@@ -59,7 +59,7 @@ public class AccessBackofficeDAO extends DAO{
     @Override
     public ArrayList getAll() {
        
-        ArrayList<Eleve> listEleves =new ArrayList<>();
+        ArrayList<AccessBackoffice> listEleves =new ArrayList<>();
         
         if(this.bddmanager.connect()){
             
@@ -70,7 +70,7 @@ public class AccessBackofficeDAO extends DAO{
                 ResultSet rs = st.executeQuery(requete);
                 
                 while (rs.next()) {
-                    Eleve el = new Eleve (rs.getInt("ideleves"),rs.getString("nomeleves"),rs.getString("prenomeleves"),rs.getInt("classeeleves"));
+                    AccessBackoffice el = new Eleve (rs.getInt("ideleves"),rs.getString("nomeleves"),rs.getString("prenomeleves"),rs.getInt("classeeleves"));
                     listEleves.add(el);
                     
                 }
