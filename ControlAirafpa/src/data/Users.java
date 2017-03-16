@@ -5,6 +5,8 @@
  */
 package data;
 
+import java.util.Objects;
+
 /**
  *
  * @author Formation
@@ -102,6 +104,36 @@ private int function ;
 
     public void setFunction(int function) {
         this.function = function;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 53 * hash + this.id;
+        hash = 53 * hash + Objects.hashCode(this.firstname);
+        hash = 53 * hash + Objects.hashCode(this.lastname);
+        hash = 53 * hash + Objects.hashCode(this.address);
+        hash = 53 * hash + Objects.hashCode(this.city);
+        hash = 53 * hash + Objects.hashCode(this.country);
+        hash = 53 * hash + Objects.hashCode(this.tel);
+        hash = 53 * hash + Objects.hashCode(this.mail);
+        hash = 53 * hash + this.function;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Users other = (Users) obj;
+        return true;
     }
 
 }

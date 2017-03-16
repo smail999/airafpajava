@@ -5,90 +5,43 @@
  */
 package dao;
 
-import java.util.ArrayList;
-import data.*;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.ArrayList;
+
 
 
 public class AccessBackofficeDAO extends DAO{
-    
-    public AccessBackofficeDAO() {
-        
-    super ();
-    
-    }
-    
+
     @Override
     public boolean creer(Object obj) {
-        
-        boolean succee = false;
-        
-        AccessBackoffice el = (AccessBackoffice) obj;
-        
-       if(this.bddmanager.connect()){
-            
-            try {
-                
-                Statement st = this.bddmanager.getConnection().createStatement();
-                String requete ="INSERT into eleves (nomeleves, prenomeleves, classeeleves) VALUES " + "(\"" + el.getNomeleve()+ "\",\"" + el.getPrenomeleve() + "\", " + el.getClasseeleve() + ")";
-                //System.out.println(requete);
-                int resultat=st.executeUpdate(requete);
-                
-                
-                                 
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-                return succee ;
-            }
-        }else {
-            
-            return succee ;
-            
-        }
-       return succee;
-    }
+    Statement st = this.bddmanager.getConnection().createStatement();
+    String requete =    
+    PreparedStatement updateemp = connect.prepareStatement(
+    "insert into emp values(?,?,?)");
+    updateemp.setInt(1,23);
+    updateemp.setString(2,"Roshan");
+    updateemp.setString(3, "CEO");
+    updateemp.executeUpdate();
 
+    }
 
     @Override
     public boolean supprimer(Object obj) {
-        return false;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public ArrayList getAll() {
-       
-        ArrayList<AccessBackoffice> listEleves =new ArrayList<>();
-        
-        if(this.bddmanager.connect()){
-            
-            try {
-                
-                Statement st = this.bddmanager.getConnection().createStatement();
-                String requete ="SELECT * FROM eleves";
-                ResultSet rs = st.executeQuery(requete);
-                
-                while (rs.next()) {
-                    AccessBackoffice el = new Eleve (rs.getInt("ideleves"),rs.getString("nomeleves"),rs.getString("prenomeleves"),rs.getInt("classeeleves"));
-                    listEleves.add(el);
-                    
-                }
-                                 
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-                return listEleves ;
-            }
-        }else {
-            
-            return listEleves ;
-            
-        }
-        
-        return listEleves;
-        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    
+    
 
     
+
+     
     
 }

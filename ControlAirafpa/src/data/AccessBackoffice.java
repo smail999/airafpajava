@@ -5,6 +5,8 @@
  */
 package data;
 
+import java.util.Objects;
+
 /**
  *
  * @author Formation
@@ -18,6 +20,9 @@ public class AccessBackoffice {
         this.usersid = usersid;
         this.nickname = nickname;
         this.password = password;
+    }
+    public AccessBackoffice () {
+        
     }
 
     public int getUsersid() {
@@ -42,6 +47,35 @@ public class AccessBackoffice {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "AccessBackoffice{" + "usersid=" + usersid + ", nickname=" + nickname + ", password=" + password + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + this.usersid;
+        hash = 59 * hash + Objects.hashCode(this.nickname);
+        hash = 59 * hash + Objects.hashCode(this.password);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AccessBackoffice other = (AccessBackoffice) obj;
+        return true;
     }
    
 }

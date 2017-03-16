@@ -20,10 +20,10 @@ public abstract class DAO <T>{
     public DAO() {
         this.bddmanager = ConnexionBddsql.getInstance();
     }
-    public abstract boolean creer(T obj);
+    public abstract T create(T obj);
     
-    public abstract boolean supprimer(T obj);
+    public abstract T delete(T obj);
     
-    public abstract ArrayList<T> getAll ();
+    public abstract T find ();
     
 }

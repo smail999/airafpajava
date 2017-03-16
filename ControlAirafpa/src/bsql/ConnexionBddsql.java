@@ -21,7 +21,7 @@ public class ConnexionBddsql {
     private static final String DB_USER = "airafpa";
     private static final String DB_PASSWORD = "airafpa";
 
-    private Connection cn = null;
+    private Connection connect = null;
 
     private ConnexionBddsql() {
 
@@ -44,21 +44,21 @@ public class ConnexionBddsql {
     }
 
     public boolean connect(){
-        if (this.cn == null) {
+        if (this.connect == null) {
             try {
-                this.cn = DriverManager.getConnection(ConnexionBddsql.DB_URL, ConnexionBddsql.DB_USER, ConnexionBddsql.DB_PASSWORD);
+                this.connect = DriverManager.getConnection(ConnexionBddsql.DB_URL, ConnexionBddsql.DB_USER, ConnexionBddsql.DB_PASSWORD);
             } catch (SQLException ex) {
                 ex.printStackTrace();
                 return false;
             }
         } else {
             try {
-                Statement st = this.cn.createStatement();
+                Statement st = this.connect.createStatement();
                 String requete = "SELECT 1";
                 st.executeQuery(requete);
             } catch (SQLException ex) {
                 try {
-                    this.cn = DriverManager.getConnection(ConnexionBddsql.DB_URL, ConnexionBddsql.DB_USER, ConnexionBddsql.DB_PASSWORD);
+                    this.connect = DriverManager.getConnection(ConnexionBddsql.DB_URL, ConnexionBddsql.DB_USER, ConnexionBddsql.DB_PASSWORD);
                 } catch (SQLException exx) {
                     exx.printStackTrace();
                     return false;
@@ -68,6 +68,6 @@ public class ConnexionBddsql {
         return true;
     }
     public Connection getConnection(){
-        return this.cn;
+        return this.connect;
     }
 }
