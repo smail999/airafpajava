@@ -19,8 +19,8 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Integer> {
     }
 
     @Override
-    public AccessBackoffice create(AccessBackoffice obj) {
-        AccessBackofficeDAO abdao = new AccessBackofficeDAO();
+    public AccessBackoffice create(AccessBackoffice abo) {
+      
         try {
 
             Statement st = this.bddmanager.getConnection().createStatement();
@@ -33,13 +33,14 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Integer> {
             ResultSet keys = creatabdao.getGeneratedKeys();
             keys.next();
             int key = keys.getInt(1);
-            abdao = this.find(key);
+            abo = this.find(abo.getUsersid());
 
         } catch (SQLException ex) {
             ex.printStackTrace();
+            return abo;
         }
 
-        return abdao;
+        return abo;
     }
 
     @Override
@@ -48,32 +49,65 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Integer> {
     }
 
     @Override
-    public AccessBackoffice delete(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean  delete(Integer abod) {
+        
+       boolean success = false;
+
+        if (this.bddmanager.connect()) {
+
+            try {
+
+                // create requete 
+                String requete = "DELETE FROM airports WHERE id = ?";
+                // prepared requete 
+                PreparedStatement pst = this.bddmanager.getConnection().prepareStatement(requete);
+                // insert value in requete
+                pst.setString(1,);
+                // excute delete row in table
+                int insert = pst.executeUpdate();
+                // if insert in table 
+                if (insert != 0) {
+                    success = true;
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                return success;
+            }
+
+        } else {
+            return success;
+        }
+        return success;
+
     }
 
 
     @Override
     public AccessBackoffice find(Integer id) {
 
-        AccessBackoffice accessite = new AccessBackoffice();
+       AccessBackoffice compte = new AccessBackoffice();
+        if (this.bddmanager.connect()) {
 
-        try {
+            try {
+                Statement st = this.bddmanager.getConnection().createStatement();
+                String requete = "SELECT * FROM airports WHERE id = ? " ;
+                ResultSet rs = st.executeQuery(requete);
+                while (rs.next()) {
+                    compte.setUsersid(rs.getInt("id"));
+                    compte.setNickname(rs.getString("name"));
+                    compte.setPassword(rs.getString("password"));
+                }
 
-            Statement st = this.bddmanager.getConnection().createStatement();
-            String requete = "SELECT * from accessite where id =id";
-            ResultSet rs = st.executeQuery(requete);
-            rs.next();
-            rs.getInt(1);
-            rs.getString(requete);
+            } catch (SQLException ex) {
+                
+                ex.printStackTrace();
+                return compte;
+            }
 
-        } catch (SQLException ex) {
-
-            ex.printStackTrace();
-
+        } else {
+            return compte;
         }
-
-        return AccessBackoffice;
+        return compte;
     }
 
 }
