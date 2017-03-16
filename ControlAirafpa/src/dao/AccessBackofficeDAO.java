@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class AccessBackofficeDAO extends DAO<AccessBackoffice, Integer> {
 
@@ -137,4 +138,42 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Integer> {
         return compte;
     }
 
-}
+    @Override
+    public ArrayList<AccessBackoffice> getall() {
+       ArrayList<AccessBackoffice> listAccessBackoffice = new ArrayList<>();
+        if (this.bddmanager.connect()) {
+
+            try {
+                Statement st = this.bddmanager
+                                .getConnection()
+                                .createStatement();
+                String requete = "SELECT * FROM airports";
+                ResultSet rs = st.executeQuery(requete);
+
+                while (rs.next()) {
+                    AccessBackoffice el = new AccessBackoffice(
+                            rs.getInt(1),
+                            rs.getString("johne"), 
+                            rs.getString("password")
+                            
+                    );
+                    listAccessBackoffice.add(el);
+
+                }
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                return listAccessBackoffice;
+            }
+
+        } else {
+            return listAccessBackoffice;
+        }
+
+        return listAccessBackoffice;
+    }
+
+   
+    }
+
+

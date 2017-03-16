@@ -6,6 +6,7 @@
 package dao;
 
 import data.AccessBackoffice;
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -49,7 +50,7 @@ public class AccessBackofficeDAOTest {
         AccessBackoffice expResult = null;
         AccessBackoffice result = instance.create(abo);
         assertEquals(expResult, result);
-      
+     
     }
 
     /**
@@ -63,7 +64,7 @@ public class AccessBackofficeDAOTest {
         boolean expResult = false;
         boolean result = instance.update(obj);
         assertEquals(expResult, result);
-       
+
     }
 
     /**
@@ -77,7 +78,7 @@ public class AccessBackofficeDAOTest {
         boolean expResult = false;
         boolean result = instance.delete(id);
         assertEquals(expResult, result);
-        
+
     }
 
     /**
@@ -90,6 +91,19 @@ public class AccessBackofficeDAOTest {
         AccessBackofficeDAO instance = new AccessBackofficeDAO();
         AccessBackoffice expResult = null;
         AccessBackoffice result = instance.find(id);
+        assertEquals(expResult, result);
+    
+    }
+
+    /**
+     * Test of getall method, of class AccessBackofficeDAO.
+     */
+    @Test
+    public void testGetall() {
+        System.out.println("getall");
+        AccessBackofficeDAO instance = new AccessBackofficeDAO();
+        ArrayList<AccessBackoffice> expResult = null;
+        ArrayList<AccessBackoffice> result = instance.getall();
         assertEquals(expResult, result);
         
     }

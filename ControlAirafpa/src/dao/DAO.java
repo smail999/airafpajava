@@ -6,6 +6,7 @@
 package dao;
 
 import bsql.ConnexionBddsql;
+import java.util.ArrayList;
 
 
 /**
@@ -27,5 +28,9 @@ public abstract class DAO <T,S>{
     public abstract boolean delete(S id);
     
     public abstract T find (S id);
+    
+    public abstract ArrayList<T> getall ();
+        
+    
     
 }
