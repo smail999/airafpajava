@@ -6,13 +6,13 @@
 package dao;
 
 import bsql.ConnexionBddsql;
-import java.util.ArrayList;
+
 
 /**
  *
  * @author Formation
  */
-public abstract class DAO <T>{
+public abstract class DAO <T,S>{
     
     
     protected ConnexionBddsql bddmanager = null ;
@@ -22,8 +22,10 @@ public abstract class DAO <T>{
     }
     public abstract T create(T obj);
     
-    public abstract T delete(T obj);
+    public abstract T update(T obj);
     
-    public abstract T find ();
+    public abstract T delete(S id);
+    
+    public abstract T find (S id);
     
 }
