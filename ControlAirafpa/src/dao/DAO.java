@@ -22,9 +22,9 @@ public abstract class DAO <T,S>{
     }
     public abstract T create(T obj);
     
-    public abstract T update(T obj);
+    public abstract boolean update(T obj);
     
-    public abstract T delete(S id);
+    public abstract boolean delete(S id);
     
     public abstract T find (S id);
     

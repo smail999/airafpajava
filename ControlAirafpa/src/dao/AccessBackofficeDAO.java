@@ -44,12 +44,39 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Integer> {
     }
 
     @Override
-    public AccessBackoffice update(AccessBackoffice obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public boolean update(AccessBackoffice obj) {
+       boolean success = false;
+
+        if (this.bddmanager.connect()) {
+
+            try {
+
+                // create requete 
+                String requete = "Update access_backoffice set nickname = ?,password = ? WHERE user_id = ?";
+                // prepared requete 
+                PreparedStatement pst = this.bddmanager.getConnection().prepareStatement(requete);
+                // insert value in requete
+                pst.setString(1, obj.getNickname());
+                pst.setString(2, obj.getPassword());
+                pst.setInt(3, obj.getUsersid());
+                // excute update row in table
+                int insert = pst.executeUpdate();
+                // if insert in table 
+                if (insert != 0) {
+                    success = true;
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                return success;
+            }
+
+        } else {
+            return success;
+        }
+        return success;   }
 
     @Override
-    public boolean  delete(Integer abod) {
+    public boolean  delete(Integer id) {
         
        boolean success = false;
 
@@ -58,13 +85,13 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Integer> {
             try {
 
                 // create requete 
-                String requete = "DELETE FROM airports WHERE id = ?";
+                String requete = "DELETE FROM access_backoffice WHERE user_id = ?";
                 // prepared requete 
-                PreparedStatement pst = this.bddmanager.getConnection().prepareStatement(requete);
+                PreparedStatement ps = this.bddmanager.getConnection().prepareStatement(requete);
                 // insert value in requete
-                pst.setString(1,);
+                ps.setInt(1,id);
                 // excute delete row in table
-                int insert = pst.executeUpdate();
+                int insert = ps.executeUpdate();
                 // if insert in table 
                 if (insert != 0) {
                     success = true;
@@ -90,7 +117,7 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Integer> {
 
             try {
                 Statement st = this.bddmanager.getConnection().createStatement();
-                String requete = "SELECT * FROM airports WHERE id = ? " ;
+                String requete = "SELECT * FROM access_backoffice WHERE user_id = ?" ;
                 ResultSet rs = st.executeQuery(requete);
                 while (rs.next()) {
                     compte.setUsersid(rs.getInt("id"));
