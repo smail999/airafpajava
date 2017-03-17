@@ -89,7 +89,7 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Long> {
             try {
 
                 // create requete 
-                String requete = "DELETE FROM access_backoffice WHERE user_id = ?";
+                String requete = "DELETE FROM access_backoffice WHERE user_id = "+ id ;
                 // prepared requete 
                 PreparedStatement ps = this.bddmanager.getConnection().prepareStatement(requete);
                 // insert value in requete
@@ -121,7 +121,7 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Long> {
 
             try {
                 Statement st = this.bddmanager.getConnection().createStatement();
-                String requete = "SELECT * FROM access_backoffice WHERE user_id = ?" ;
+                String requete = "SELECT * FROM access_backoffice WHERE user_id = " + id;
                 ResultSet rs = st.executeQuery(requete);
                 
                 rs.next();

@@ -45,8 +45,8 @@ public class AccessBackofficeDAOTest {
     @Test
     public void testCreate() {
         System.out.println("create");
-        long test = 4;
-        AccessBackoffice abo = new AccessBackoffice( test , "smail1","elmoussaoui1");
+        long test = 5;
+        AccessBackoffice abo = new AccessBackoffice( test , "smail","elmoussaoui");
         AccessBackofficeDAO instance = new AccessBackofficeDAO();
         String result = instance.create(abo).toString(); 
         String expResult = abo.toString();
@@ -55,20 +55,21 @@ public class AccessBackofficeDAOTest {
      
     }
 
-//    /**
-//     * Test of update method, of class AccessBackofficeDAO.
-//     */
-//    @Test
-//    public void testUpdate() {
-//        System.out.println("update");
-//        AccessBackoffice obj = null;
-//        AccessBackofficeDAO instance = new AccessBackofficeDAO();
-//        boolean expResult = false;
-//        boolean result = instance.update(obj);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    /**
+     * Test of update method, of class AccessBackofficeDAO.
+     */
+    @Test
+    public void testUpdate() {
+        System.out.println("update");
+        long test = 5;
+        AccessBackoffice obj = new AccessBackoffice( test , "smail","elmoussaoui");
+        AccessBackofficeDAO instance = new AccessBackofficeDAO();
+        boolean expResult = false;
+        boolean result = instance.update(obj);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
 //
 //    /**
 //     * Test of delete method, of class AccessBackofficeDAO.
