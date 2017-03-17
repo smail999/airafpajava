@@ -22,15 +22,17 @@ public abstract class DAO <T,S>{
         this.bddmanager = ConnexionBddsql.getInstance();
     }
     public abstract T create(T obj);
-    
+    // INSERT INTO
     public abstract boolean update(T obj);
-    
+    // Modify 
     public abstract boolean delete(S id);
-    
+    // supress
     public abstract T find (S id);
-    
+    // Select
+    public abstract boolean isValid(T obj);
+    // just in case to test all proprieties
     public abstract ArrayList<T> getall ();
-        
+    // Test the id if it exist   
     
     
 }

@@ -12,37 +12,40 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class AccessBackofficeDAO extends DAO<AccessBackoffice, Integer> {
+public class AccessBackofficeDAO extends DAO<AccessBackoffice, Long> {
 
     public AccessBackofficeDAO() {
-
         super();
     }
 
     @Override
     public AccessBackoffice create(AccessBackoffice abo) {
-      
+        AccessBackoffice accesback = new AccessBackoffice();
+         if (this.bddmanager.connect()) {
         try {
 
-            Statement st = this.bddmanager.getConnection().createStatement();
-            PreparedStatement creatabdao = this.bddmanager.getConnection().prepareStatement("insert into emp values(?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            
+            PreparedStatement creatabdao = this.bddmanager.getConnection().prepareStatement("insert into access_backoffice values(?,?,?)");
 
-            creatabdao.setInt(1, 23);
-            creatabdao.setString(2, "Roshan");
-            creatabdao.setString(3, "CEO");
+            creatabdao.setLong(1, abo.getUsersid());
+            creatabdao.setString(2, abo.getNickname());
+            creatabdao.setString(3, abo.getPassword());
             creatabdao.executeUpdate();
-            ResultSet keys = creatabdao.getGeneratedKeys();
-            keys.next();
-            int key = keys.getInt(1);
+            accesback = this.find(abo.getUsersid());
+           
+            
+            
             abo = this.find(abo.getUsersid());
 
         } catch (SQLException ex) {
             ex.printStackTrace();
             return abo;
         }
+         }
 
         return abo;
     }
+    
 
     @Override
     public boolean update(AccessBackoffice obj) {
@@ -59,7 +62,7 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Integer> {
                 // insert value in requete
                 pst.setString(1, obj.getNickname());
                 pst.setString(2, obj.getPassword());
-                pst.setInt(3, obj.getUsersid());
+                pst.setLong(3, obj.getUsersid());
                 // excute update row in table
                 int insert = pst.executeUpdate();
                 // if insert in table 
@@ -77,7 +80,7 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Integer> {
         return success;   }
 
     @Override
-    public boolean  delete(Integer id) {
+    public boolean  delete(Long id) {
         
        boolean success = false;
 
@@ -90,7 +93,7 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Integer> {
                 // prepared requete 
                 PreparedStatement ps = this.bddmanager.getConnection().prepareStatement(requete);
                 // insert value in requete
-                ps.setInt(1,id);
+                ps.setLong(1,id);
                 // excute delete row in table
                 int insert = ps.executeUpdate();
                 // if insert in table 
@@ -111,7 +114,7 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Integer> {
 
 
     @Override
-    public AccessBackoffice find(Integer id) {
+    public AccessBackoffice find(Long id) {
 
        AccessBackoffice compte = new AccessBackoffice();
         if (this.bddmanager.connect()) {
@@ -120,11 +123,11 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Integer> {
                 Statement st = this.bddmanager.getConnection().createStatement();
                 String requete = "SELECT * FROM access_backoffice WHERE user_id = ?" ;
                 ResultSet rs = st.executeQuery(requete);
-                while (rs.next()) {
-                    compte.setUsersid(rs.getInt("id"));
-                    compte.setNickname(rs.getString("name"));
-                    compte.setPassword(rs.getString("password"));
-                }
+                
+                rs.next();
+                  
+                compte = new AccessBackoffice(rs.getLong("user_id"), rs.getString("nickname"), rs.getString("password"));
+                
 
             } catch (SQLException ex) {
                 
@@ -147,12 +150,12 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Integer> {
                 Statement st = this.bddmanager
                                 .getConnection()
                                 .createStatement();
-                String requete = "SELECT * FROM airports";
+                String requete = "SELECT * FROM access_backoffice";
                 ResultSet rs = st.executeQuery(requete);
 
                 while (rs.next()) {
                     AccessBackoffice el = new AccessBackoffice(
-                            rs.getInt(1),
+                            rs.getLong(1),
                             rs.getString("johne"), 
                             rs.getString("password")
                             
@@ -171,6 +174,14 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Integer> {
         }
 
         return listAccessBackoffice;
+    }
+    
+    @Override
+    public boolean isValid(AccessBackoffice obj) {
+        if(obj.getUsersid()== -1 || obj.getNickname() == null || obj.getPassword() == null){
+            return false;
+        }
+        return true;
     }
 
    

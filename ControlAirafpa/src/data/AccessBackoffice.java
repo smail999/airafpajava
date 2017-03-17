@@ -12,12 +12,12 @@ import java.util.Objects;
  * @author Formation
  */
 public class AccessBackoffice {
-   private int usersid ;
+   private Long users_id ;
    private String nickname ;
    private String password ;
 
-    public AccessBackoffice(int usersid, String nickname, String password) {
-        this.usersid = usersid;
+    public AccessBackoffice(Long usersid, String nickname, String password) {
+        this.users_id = usersid;
         this.nickname = nickname;
         this.password = password;
     }
@@ -25,8 +25,8 @@ public class AccessBackoffice {
         
     }
 
-    public int getUsersid() {
-        return usersid;
+    public Long getUsersid() {
+        return users_id;
     }
 
     public String getNickname() {
@@ -37,8 +37,8 @@ public class AccessBackoffice {
         return password;
     }
 
-    public void setUsersid(int usersid) {
-        this.usersid = usersid;
+    public void setUsersid(Long usersid) {
+        this.users_id = usersid;
     }
 
     public void setNickname(String nickname) {
@@ -51,15 +51,15 @@ public class AccessBackoffice {
 
     @Override
     public String toString() {
-        return "AccessBackoffice{" + "usersid=" + usersid + ", nickname=" + nickname + ", password=" + password + '}';
+        return "AccessBackoffice{" + "usersid=" + users_id + ", nickname=" + nickname + ", password=" + password + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + this.usersid;
-        hash = 59 * hash + Objects.hashCode(this.nickname);
-        hash = 59 * hash + Objects.hashCode(this.password);
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(this.users_id);
+        hash = 29 * hash + Objects.hashCode(this.nickname);
+        hash = 29 * hash + Objects.hashCode(this.password);
         return hash;
     }
 
@@ -77,5 +77,7 @@ public class AccessBackoffice {
         final AccessBackoffice other = (AccessBackoffice) obj;
         return true;
     }
+
+   
    
 }

@@ -4,6 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Formation/Documents/NetBeansProjects/ControlAirafpa/src/dao/AccessBackofficeDAO.java</file>
+            <file>file:/C:/Users/Formation/Documents/NetBeansProjects/ControlAirafpa/src/data/AccessBackoffice.java</file>
+            <file>file:/C:/Users/Formation/Documents/NetBeansProjects/ControlAirafpa/src/dao/DAO.java</file>
+            <file>file:/C:/Users/Formation/Documents/NetBeansProjects/ControlAirafpa/test/dao/AccessBackofficeDAOTest.java</file>
         </group>
     </open-files>
 </project-private>
