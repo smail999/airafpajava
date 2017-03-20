@@ -5,45 +5,76 @@
  */
 package data;
 
+import java.util.Objects;
+
 /**
  *
  * @author Formation
  */
 public class Flights {
-private int id ;
-private String departingaita;
-private String arrivalaita;
-private int duration ;
-private double price ;
-private int pilote ;
-private int copilote ;
-private int staff1;
-private int staff2;
-private int staff3;
 
-    public Flights(int id, String departingaita, String arrivalaita, int duration, double price, int pilote, int copilote, int staff1, int staff2, int staff3) {
+    private long id;
+    private String departing_aita;
+    private String arrival_aita;
+    private String departing_hour;
+    private int duration;
+    private double price;
+    private long id_pilot;
+    private long id_copilot;
+    private long id_staff1;
+    private long id_staff2;
+    private long id_staff3;
+    private boolean planned;
+    
+    // this construct create flight empty 
+    public Flights() {
+        this.id = 0;
+        this.departing_aita = "";
+        this.arrival_aita = "";
+        this.departing_hour = "";
+        this.duration = 0;
+        this.price = 0;
+        this.id_pilot = 0;
+        this.id_copilot = 0;
+        this.id_staff1 = 0;
+        this.id_staff2 = 0;
+        this.id_staff3 = 0;
+        this.planned = false;
+    }
+     // this construct create flight full
+    public Flights(
+            long id, String departing_aita, String arrival_aita, 
+            String departing_hour, int duration, double price, long id_pilot, 
+            long id_copilot, long id_staff1, long id_staff2, long id_staff3, 
+            boolean planned) {
         this.id = id;
-        this.departingaita = departingaita;
-        this.arrivalaita = arrivalaita;
+        this.departing_aita = departing_aita;
+        this.arrival_aita = arrival_aita;
+        this.departing_hour = departing_hour;
         this.duration = duration;
         this.price = price;
-        this.pilote = pilote;
-        this.copilote = copilote;
-        this.staff1 = staff1;
-        this.staff2 = staff2;
-        this.staff3 = staff3;
+        this.id_pilot = id_pilot;
+        this.id_copilot = id_copilot;
+        this.id_staff1 = id_staff1;
+        this.id_staff2 = id_staff2;
+        this.id_staff3 = id_staff3;
+        this.planned = planned;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public String getDepartingaita() {
-        return departingaita;
+    public String getDeparting_aita() {
+        return departing_aita;
     }
 
-    public String getArrivalaita() {
-        return arrivalaita;
+    public String getArrival_aita() {
+        return arrival_aita;
+    }
+
+    public String getDeparting_hour() {
+        return departing_hour;
     }
 
     public int getDuration() {
@@ -54,36 +85,43 @@ private int staff3;
         return price;
     }
 
-    public int getPilote() {
-        return pilote;
+    public long getId_pilot() {
+        return id_pilot;
     }
 
-    public int getCopilote() {
-        return copilote;
+    public long getId_copilot() {
+        return id_copilot;
     }
 
-    public int getStaff1() {
-        return staff1;
+    public long getId_staff1() {
+        return id_staff1;
     }
 
-    public int getStaff2() {
-        return staff2;
+    public long getId_staff2() {
+        return id_staff2;
     }
 
-    public int getStaff3() {
-        return staff3;
+    public long getId_staff3() {
+        return id_staff3;
     }
 
-    public void setId(int id) {
+    public boolean getPlanned() {
+        return planned;
+    }
+
+    public void setId(long id) {
         this.id = id;
     }
-
-    public void setDepartingaita(String departingaita) {
-        this.departingaita = departingaita;
+    public void setDeparting_aita(String departing_aita) {
+        this.departing_aita = departing_aita;
     }
 
-    public void setArrivalaita(String arrivalaita) {
-        this.arrivalaita = arrivalaita;
+    public void setArrival_aita(String arrival_aita) {
+        this.arrival_aita = arrival_aita;
+    }
+
+    public void setDeparting_hour(String departing_hour) {
+        this.departing_hour = departing_hour;
     }
 
     public void setDuration(int duration) {
@@ -94,25 +132,109 @@ private int staff3;
         this.price = price;
     }
 
-    public void setPilote(int pilote) {
-        this.pilote = pilote;
+    public void setId_pilot(long id_pilot) {
+        this.id_pilot = id_pilot;
     }
 
-    public void setCopilote(int copilote) {
-        this.copilote = copilote;
+    public void setId_copilot(long id_copilot) {
+        this.id_copilot = id_copilot;
     }
 
-    public void setStaff1(int staff1) {
-        this.staff1 = staff1;
+    public void setId_staff1(long id_staff1) {
+        this.id_staff1 = id_staff1;
     }
 
-    public void setStaff2(int staff2) {
-        this.staff2 = staff2;
+    public void setId_staff2(long id_staff2) {
+        this.id_staff2 = id_staff2;
     }
 
-    public void setStaff3(int staff3) {
-        this.staff3 = staff3;
+    public void setId_staff3(long id_staff3) {
+        this.id_staff3 = id_staff3;
     }
-        
-  
+
+    public void setPlanned(boolean planned) {
+        this.planned = planned;
+    }
+
+    @Override
+    public String toString() {
+        return "Flight{" + "id=" + id + ", departing_aita=" + departing_aita 
+                + ", arrival_aita=" + arrival_aita + ", departing_hour=" + 
+                departing_hour + ", duration=" + duration + ", price=" + price 
+                + ", id_pilot=" + id_pilot + ", id_copilot=" + id_copilot 
+                + ", id_staff1=" + id_staff1 + ", id_staff2=" + id_staff2 
+                + ", id_staff3=" + id_staff3 + ", planned=" + planned + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 29 * hash + Objects.hashCode(this.departing_aita);
+        hash = 29 * hash + Objects.hashCode(this.arrival_aita);
+        hash = 29 * hash + Objects.hashCode(this.departing_hour);
+        hash = 29 * hash + this.duration;
+        hash = 29 * hash + (int) (Double.doubleToLongBits(this.price) ^ 
+                            (Double.doubleToLongBits(this.price) >>> 32));
+        hash = 29 * hash + (int) (this.id_pilot ^ (this.id_pilot >>> 32));
+        hash = 29 * hash + (int) (this.id_copilot ^ (this.id_copilot >>> 32));
+        hash = 29 * hash + (int) (this.id_staff1 ^ (this.id_staff1 >>> 32));
+        hash = 29 * hash + (int) (this.id_staff2 ^ (this.id_staff2 >>> 32));
+        hash = 29 * hash + (int) (this.id_staff3 ^ (this.id_staff3 >>> 32));
+        hash = 29 * hash + (this.planned ? 1 : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Flights other = (Flights) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (this.duration != other.duration) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.price) != Double.doubleToLongBits(other.price)) {
+            return false;
+        }
+        if (this.id_pilot != other.id_pilot) {
+            return false;
+        }
+        if (this.id_copilot != other.id_copilot) {
+            return false;
+        }
+        if (this.id_staff1 != other.id_staff1) {
+            return false;
+        }
+        if (this.id_staff2 != other.id_staff2) {
+            return false;
+        }
+        if (this.id_staff3 != other.id_staff3) {
+            return false;
+        }
+        if (this.planned != other.planned) {
+            return false;
+        }
+        if (!Objects.equals(this.departing_aita, other.departing_aita)) {
+            return false;
+        }
+        if (!Objects.equals(this.arrival_aita, other.arrival_aita)) {
+            return false;
+        }
+        if (!Objects.equals(this.departing_hour, other.departing_hour)) {
+            return false;
+        }
+        return true;
+    }
+
+    
 }

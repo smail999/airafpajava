@@ -70,28 +70,28 @@ public class AccessBackofficeDAOTest {
        
     }
 
-//    /**
-//     * Test of delete method, of class AccessBackofficeDAO.
-//     */
-//    @Test
-//    public void testDelete() {
-//        
-//        System.out.println("delete");
-//       
-//        long id = 3;
-//        AccessBackofficeDAO instance = new AccessBackofficeDAO();
-//        boolean result = instance.delete(id);
-//                
-//        
-//        
-//        
-//        assertEquals(true, result);
-//        
-//    }
-//
-//    /**
-//     * Test of find method, of class AccessBackofficeDAO.
-//     */
+    /**
+     * Test of delete method, of class AccessBackofficeDAO.
+     */
+    @Test
+    public void testDelete() {
+        
+        System.out.println("delete");
+       
+        long id = 3;
+        AccessBackofficeDAO instance = new AccessBackofficeDAO();
+        boolean result = instance.delete(id);
+                
+        
+        
+        
+        assertEquals(true, result);
+        
+    }
+
+    /**
+     * Test of find method, of class AccessBackofficeDAO.
+     */
     @Test
     public void testFind() {
         System.out.println("find");

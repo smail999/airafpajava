@@ -12,12 +12,12 @@ import java.util.Objects;
  * @author Formation
  */
 public class AccessBackoffice {
-   private Long users_id ;
+   private Long user_id ;
    private String nickname ;
    private String password ;
 
     public AccessBackoffice(Long usersid, String nickname, String password) {
-        this.users_id = usersid;
+        this.user_id = usersid;
         this.nickname = nickname;
         this.password = password;
     }
@@ -26,7 +26,7 @@ public class AccessBackoffice {
     }
 
     public Long getUsersid() {
-        return users_id;
+        return user_id;
     }
 
     public String getNickname() {
@@ -38,7 +38,7 @@ public class AccessBackoffice {
     }
 
     public void setUsersid(Long usersid) {
-        this.users_id = usersid;
+        this.user_id = usersid;
     }
 
     public void setNickname(String nickname) {
@@ -51,13 +51,13 @@ public class AccessBackoffice {
 
     @Override
     public String toString() {
-        return "AccessBackoffice{" + "user_id=" + users_id + ", nickname=" + nickname + ", password=" + password + '}';
+        return "AccessBackoffice{" + "user_id=" + user_id + ", nickname=" + nickname + ", password=" + password + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 29 * hash + Objects.hashCode(this.users_id);
+        hash = 29 * hash + Objects.hashCode(this.user_id);
         hash = 29 * hash + Objects.hashCode(this.nickname);
         hash = 29 * hash + Objects.hashCode(this.password);
         return hash;
