@@ -23,7 +23,7 @@ public abstract class DAO <T,S>{
     }
     public abstract T create(T obj);
     // INSERT INTO
-    public abstract boolean update(T obj);
+    public abstract T update(T obj);
     // Modify 
     public abstract boolean delete(S id);
     // supress

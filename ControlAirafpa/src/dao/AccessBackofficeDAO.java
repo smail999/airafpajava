@@ -48,8 +48,8 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Long> {
     
 
     @Override
-    public boolean update(AccessBackoffice obj) {
-       boolean success = false;
+    public AccessBackoffice update(AccessBackoffice obj) {
+       AccessBackoffice success = new AccessBackoffice ();
 
         if (this.bddmanager.connect()) {
 
@@ -67,17 +67,16 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Long> {
                 int insert = pst.executeUpdate();
                 // if insert in table 
                 if (insert != 0) {
-                    success = true;
+                    
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();
                 return success;
             }
 
-        } else {
-            return success;
         }
-        return success;   }
+        return success;   
+    }
 
     @Override
     public boolean  delete(Long id) {
@@ -89,11 +88,12 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Long> {
             try {
 
                 // create requete 
-                String requete = "DELETE FROM access_backoffice WHERE user_id = "+ id ;
+                String requete = "DELETE FROM access_backoffice WHERE user_id = ?" ;
                 // prepared requete 
                 PreparedStatement ps = this.bddmanager.getConnection().prepareStatement(requete);
                 // insert value in requete
                 ps.setLong(1,id);
+                
                 // excute delete row in table
                 int insert = ps.executeUpdate();
                 // if insert in table 
@@ -102,11 +102,11 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Long> {
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();
+                
                 return success;
             }
 
-        } else {
-            return success;
+       
         }
         return success;
 
@@ -154,13 +154,11 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Long> {
                 ResultSet rs = st.executeQuery(requete);
 
                 while (rs.next()) {
-                    AccessBackoffice el = new AccessBackoffice(
-                            rs.getLong(1),
-                            rs.getString("johne"), 
-                            rs.getString("password")
+                      AccessBackoffice abdoall = new AccessBackoffice(rs.getLong("user_id"), rs.getString("nickname"), rs.getString("password"));
+                    listAccessBackoffice.add(abdoall);
                             
-                    );
-                    listAccessBackoffice.add(el);
+                    
+                    listAccessBackoffice.add(abdoall);
 
                 }
 
@@ -169,8 +167,7 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Long> {
                 return listAccessBackoffice;
             }
 
-        } else {
-            return listAccessBackoffice;
+       
         }
 
         return listAccessBackoffice;

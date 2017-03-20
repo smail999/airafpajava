@@ -45,11 +45,11 @@ public class AccessBackofficeDAOTest {
     @Test
     public void testCreate() {
         System.out.println("create");
-        long test = 5;
-        AccessBackoffice abo = new AccessBackoffice( test , "smail","elmoussaoui");
+        long test = 2;
+        AccessBackoffice aboc = new AccessBackoffice( test , "smail2","elmoussaoui2");
         AccessBackofficeDAO instance = new AccessBackofficeDAO();
-        String result = instance.create(abo).toString(); 
-        String expResult = abo.toString();
+        String result = instance.create(aboc).toString(); 
+        String expResult = aboc.toString();
        
         assertEquals(expResult, result);
      
@@ -61,74 +61,69 @@ public class AccessBackofficeDAOTest {
     @Test
     public void testUpdate() {
         System.out.println("update");
-        long test = 5;
-        AccessBackoffice obj = new AccessBackoffice( test , "smail","elmoussaoui");
+        long keyss  = 5;
+        AccessBackoffice abou = new AccessBackoffice( keyss  , "smail1","elmoussaoui1");
         AccessBackofficeDAO instance = new AccessBackofficeDAO();
-        boolean expResult = false;
-        boolean result = instance.update(obj);
+        AccessBackoffice expResult = instance.find(keyss );
+        AccessBackoffice result = instance.update(abou);       
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
-//
+
 //    /**
 //     * Test of delete method, of class AccessBackofficeDAO.
 //     */
 //    @Test
 //    public void testDelete() {
+//        
 //        System.out.println("delete");
-//        Long id = null;
+//       
+//        long id = 3;
 //        AccessBackofficeDAO instance = new AccessBackofficeDAO();
-//        boolean expResult = false;
 //        boolean result = instance.delete(id);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
+//                
+//        
+//        
+//        
+//        assertEquals(true, result);
+//        
 //    }
 //
 //    /**
 //     * Test of find method, of class AccessBackofficeDAO.
 //     */
-//    @Test
-//    public void testFind() {
-//        System.out.println("find");
-//        Long id = null;
-//        AccessBackofficeDAO instance = new AccessBackofficeDAO();
-//        AccessBackoffice expResult = null;
-//        AccessBackoffice result = instance.find(id);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of getall method, of class AccessBackofficeDAO.
-//     */
-//    @Test
-//    public void testGetall() {
-//        System.out.println("getall");
-//        AccessBackofficeDAO instance = new AccessBackofficeDAO();
-//        ArrayList<AccessBackoffice> expResult = null;
-//        ArrayList<AccessBackoffice> result = instance.getall();
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of isValid method, of class AccessBackofficeDAO.
-//     */
-//    @Test
-//    public void testIsValid() {
-//        System.out.println("isValid");
-//        AccessBackoffice obj = null;
-//        AccessBackofficeDAO instance = new AccessBackofficeDAO();
-//        boolean expResult = false;
-//        boolean result = instance.isValid(obj);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//    
+    @Test
+    public void testFind() {
+        System.out.println("find");
+        long id = 6 ;
+        
+        AccessBackofficeDAO instance = new AccessBackofficeDAO();
+        String expResult = "AccessBackoffice{user_id=6, nickname=smail6, password=elmoussaoui6}";
+        String result = instance.find(id).toString();
+        
+        assertEquals(expResult, result);
+       
+    }
+
+    /**
+     * Test of getall method, of class AccessBackofficeDAO.
+     */
+    @Test
+    public void testGetall() {
+      System.out.println("get all");
+     String result = "";
+     String expResult = "";
+     AccessBackofficeDAO instance = new AccessBackofficeDAO();
+     ArrayList<AccessBackoffice> arrayOfResult = instance.getall();
+        for (AccessBackoffice accessSite : arrayOfResult) {
+            result += accessSite.toString();
+            expResult += instance.find(accessSite.getUsersid()).toString();
+        }
+     
+     assertEquals(expResult, result);
+    }
+
+   
+    
 }
 

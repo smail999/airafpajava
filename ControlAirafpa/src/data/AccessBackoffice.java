@@ -51,7 +51,7 @@ public class AccessBackoffice {
 
     @Override
     public String toString() {
-        return "AccessBackoffice{" + "usersid=" + users_id + ", nickname=" + nickname + ", password=" + password + '}';
+        return "AccessBackoffice{" + "user_id=" + users_id + ", nickname=" + nickname + ", password=" + password + '}';
     }
 
     @Override
