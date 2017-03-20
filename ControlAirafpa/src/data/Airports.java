@@ -5,6 +5,8 @@
  */
 package data;
 
+import java.util.Objects;
+
 /**
  *
  * @author Formation
@@ -12,13 +14,16 @@ package data;
 public class Airports {
      private String aita ;
     private String city ; 
-    private String pays ;
+    private String country ;
 
-    public Airports(String aita, String city, String pays) {
+    public Airports(String aita, String city, String country) {
         this.aita = aita;
         this.city = city;
-        this.pays = pays;
+        this.country = country;
     }
+    public Airports (){
+        
+    } 
 
     public String getAita() {
         return aita;
@@ -28,8 +33,8 @@ public class Airports {
         return city;
     }
 
-    public String getPays() {
-        return pays;
+    public String getCountry() {
+        return country;
     }
 
     public void setAita(String aita) {
@@ -40,8 +45,37 @@ public class Airports {
         this.city = city;
     }
 
-    public void setPays(String pays) {
-        this.pays = pays;
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.aita);
+        hash = 79 * hash + Objects.hashCode(this.city);
+        hash = 79 * hash + Objects.hashCode(this.country);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Airports other = (Airports) obj;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Airports{" + "aita=" + aita + ", city=" + city + ", country=" + country + '}';
     }
     
     

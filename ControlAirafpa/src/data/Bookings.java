@@ -10,48 +10,85 @@ package data;
  * @author Formation
  */
 public class Bookings {
-    private int id ;
-    private int userid ; 
-    private int flightid ;
+    private long id ;
+    private long user_id ; 
+    private long flight_id ;
     private int place ;
 
-    public Bookings(int id, int userid, int flightid, int place) {
+    public Bookings(long id, long user_id, long flight_id, int place) {
         this.id = id;
-        this.userid = userid;
-        this.flightid = flightid;
+        this.user_id = user_id;
+        this.flight_id = flight_id;
         this.place = place;
     }
+    public Bookings () {
+        
+    }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public int getUserid() {
-        return userid;
+    public long getUser_id() {
+        return user_id;
     }
 
-    public int getFlightid() {
-        return flightid;
+    public long getFlight_id() {
+        return flight_id;
     }
 
     public int getPlace() {
         return place;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public void setUserid(int userid) {
-        this.userid = userid;
+    public void setUser_id(long userid) {
+        this.user_id = userid;
     }
 
-    public void setFlightid(int flightid) {
-        this.flightid = flightid;
+    public void setFlight_id(long flightid) {
+        this.flight_id = flightid;
     }
 
     public void setPlace(int place) {
         this.place = place;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 61 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 61 * hash + (int) (this.user_id ^ (this.user_id >>> 32));
+        hash = 61 * hash + (int) (this.flight_id ^ (this.flight_id >>> 32));
+        hash = 61 * hash + this.place;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Bookings other = (Bookings) obj;
+        return true;
+    }
+
+   
+
+    
+
+    @Override
+    public String toString() {
+        return "Bookings{" + "id=" + id + ", userid=" + user_id + ", flightid=" + flight_id + ", place=" + place + '}';
     }
     
     
