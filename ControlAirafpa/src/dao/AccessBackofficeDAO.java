@@ -25,7 +25,7 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Long> {
         try {
 
             
-            PreparedStatement creatabdao = this.bddmanager.getConnection().prepareStatement("insert into access_backoffice values(?,?,?)");
+            PreparedStatement creatabdao = this.bddmanager.getConnection().prepareStatement("insert into access_backoffice values(?,?,MD5(?))");
 
             creatabdao.setLong(1, abo.getUsersid());
             creatabdao.setString(2, abo.getNickname());
@@ -56,7 +56,7 @@ public class AccessBackofficeDAO extends DAO<AccessBackoffice, Long> {
             try {
 
                 // create requete 
-                String requete = "Update access_backoffice set nickname = ?,password = ? WHERE user_id = ?";
+                String requete = "Update access_backoffice set nickname = ?,password = MD5(?) WHERE user_id = ?";
                 // prepared requete 
                 PreparedStatement pst = this.bddmanager.getConnection().prepareStatement(requete);
                 // insert value in requete
