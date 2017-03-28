@@ -5,7 +5,7 @@
  */
 package dao;
 
-import data.Airports;
+import model.Airport;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -16,25 +16,27 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Formation
+ * @author Salim El Moussaoui <salim.elmoussaoui.afpa2017@gmail.com>
+ * @author Cedric DELHOME
+ * @author Laure-Helene Soyeux
  */
 public class AirportDAOTest {
-    
+
     public AirportDAOTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -46,15 +48,15 @@ public class AirportDAOTest {
     public void testCreate() {
         System.out.println("create");
         // create object airport
-        Airports airport = new Airports("ACE", "île de Lanzarote, Canaries", "Espagne");
+        Airport airport = new Airport("ACE", "île de Lanzarote, Canaries", "Espagne");
         AirportDAO airportDAO = new AirportDAO();
         // find airport  create 
-        Airports expResult = airportDAO.find(airport.getAita());
+        Airport expResult = airportDAO.find(airport.getAita());
         
         // if find aita is empty or null
         if (!airportDAO.isValid(expResult)) {
             // insert airport in table
-            Airports result = airportDAO.create(airport);   
+            Airport result = airportDAO.create(airport);   
             // find airport
             expResult = airportDAO.find(airport.getAita());
             // delete airport
@@ -71,15 +73,15 @@ public class AirportDAOTest {
     public void testUpdate() {
         System.out.println("update");
         // create object airport
-        Airports airportInsert = new Airports("AEK", "Aseki", "Papouasie-Nouvelle-Guinée");
+        Airport airportInsert = new Airport("AEK", "Aseki", "Papouasie-Nouvelle-Guinée");
         AirportDAO airportDAO = new AirportDAO();
         // find airport create 
-        Airports findAirport = airportDAO.find(airportInsert.getAita());
+        Airport findAirport = airportDAO.find(airportInsert.getAita());
         
         // if find airport is empty
         if (!airportDAO.isValid(findAirport)) {
             // Insert airport in table
-            Airports resultAirport = airportDAO.create(airportInsert);  
+            Airport resultAirport = airportDAO.create(airportInsert);  
             // find airport
             findAirport = airportDAO.find(resultAirport.getAita());    
         }
@@ -89,7 +91,7 @@ public class AirportDAOTest {
             
    
         // update airport
-        Airports result = airportDAO.update(findAirport);   
+        boolean result = airportDAO.update(findAirport);   
         boolean expResult = true;
         // delete airport
         airportDAO.delete(findAirport.getAita());
@@ -104,18 +106,20 @@ public class AirportDAOTest {
         AirportDAO airportDAO = new AirportDAO();
         
         // create object airport
-        Airports airportInsert = new Airports("AGA", "agadir", "Maroc");
+        Airport airportInsert = new Airport("AGA", "agadir", "Maroc");
         // find airport  create 
-        Airports findAirport = airportDAO.find(airportInsert.getAita());
+        Airport findAirport = airportDAO.find(airportInsert.getAita());
         
         // if find airport is empty
        if (!airportDAO.isValid(findAirport)) {
             // Insert airport in table
-            Airports resultAirport = airportDAO.create(airportInsert);  
+            Airport resultAirport = airportDAO.create(airportInsert);  
             // find airport
-            findAirport = airportDAO.find(resultAirport.getAita()); 
+            findAirport = airportDAO.find(resultAirport.getAita());
+            System.out.println("aaa " + findAirport);
             // delete airport
             boolean result = airportDAO.delete(findAirport.getAita());
+                        System.out.println("aaa " + result);
             boolean expResult = true;
             assertEquals(expResult, result);
         }
@@ -127,7 +131,7 @@ public class AirportDAOTest {
     public void testGetdAll() {
         System.out.println("findAll");
         AirportDAO airportDAO = new AirportDAO();
-        ArrayList<Airports> arrayAirport = airportDAO.getall();
+        ArrayList<Airport> arrayAirport = airportDAO.getAll();
         String expResult = "";
         String result = "";
         for (int i = 0; i < arrayAirport.size(); i++) {

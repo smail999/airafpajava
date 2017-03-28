@@ -5,56 +5,35 @@
  */
 package dao;
 
-import data.Bookings;
+import model.Booking;
 import java.util.ArrayList;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
  *
- * @author Formation
+ * @author Salim El Moussaoui <salim.elmoussaoui.afpa2017@gmail.com>
+ * @author Cedric DELHOME
+ * @author Laure-Helene Soyeux
  */
 public class BookingDAOTest {
-    
-    public BookingDAOTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of create method, of class BookingDAO.
      */
-     @Test
+    @Test
     public void testCreate() {
         System.out.println("create");
         // create object booking    
-        Bookings booking = new Bookings(0, 32, 2, 70);
+        Booking booking = new Booking(0, 32, 2, 70);
         BookingDAO bookingDAO = new BookingDAO();
         // find booking  create 
-        Bookings expResult = bookingDAO.find(booking.getId());
+        Booking expResult = bookingDAO.find(booking.getId());
 
         // if find aita is empty or null
         if (!bookingDAO.isValid(expResult)) {           
             // insert booking in table
-            Bookings result = bookingDAO.create(booking);
+            Booking result = bookingDAO.create(booking);
             // find booking
             expResult = bookingDAO.find(booking.getId());   
             // delete booking test
@@ -72,15 +51,15 @@ public class BookingDAOTest {
     public void testUpdate() {
         System.out.println("update");
         // create object booking      
-        Bookings bookingInsert = new Bookings(0, 36, 2, 40);
+        Booking bookingInsert = new Booking(0, 36, 2, 40);
         // instatied bookingDAO
         BookingDAO bookingDAO = new BookingDAO();
         // find booking create 
-        Bookings findBooking = bookingDAO.find(bookingInsert.getId());
+        Booking findBooking = bookingDAO.find(bookingInsert.getId());
         // if find booking is empty
         if (!bookingDAO.isValid(findBooking)) {
             // Insert booking in table
-            Bookings resultBooking = bookingDAO.create(bookingInsert);             
+            Booking resultBooking = bookingDAO.create(bookingInsert);             
             // find booking
             findBooking = bookingDAO.find(resultBooking.getId());
         }
@@ -88,7 +67,7 @@ public class BookingDAOTest {
             findBooking.setPlace(75);
 
         // update booking
-        Bookings result = bookingDAO.update(findBooking);
+        boolean result = bookingDAO.update(findBooking);
         boolean expResult = true;
         // delete booking test
         bookingDAO.delete(findBooking.getId());
@@ -104,14 +83,14 @@ public class BookingDAOTest {
         BookingDAO bookingDAO = new BookingDAO();
 
         // create object booking	
-        Bookings bookingInsert =  new Bookings(0, 31, 2, 40);
+        Booking bookingInsert =  new Booking(0, 31, 2, 40);
         // find booking  create 
-        Bookings findBooking = bookingDAO.find(bookingInsert.getId());
+        Booking findBooking = bookingDAO.find(bookingInsert.getId());
 
         // if find booking is empty
         if (!bookingDAO.isValid(findBooking)) {
             // Insert booking in table
-            Bookings resultBooking = bookingDAO.create(bookingInsert);
+            Booking resultBooking = bookingDAO.create(bookingInsert);
             // find booking
             findBooking = bookingDAO.find(resultBooking.getId());
             // delete booking
@@ -128,7 +107,7 @@ public class BookingDAOTest {
     public void testGetdAll() {
         System.out.println("findAll");
         BookingDAO bookingDAO = new BookingDAO();
-        ArrayList<Bookings> arrayBooking = bookingDAO.getall();
+        ArrayList<Booking> arrayBooking = bookingDAO.getAll();
         String expResult = "";
         String result = "";
         for (int i = 0; i < arrayBooking.size(); i++) {
@@ -155,5 +134,4 @@ public class BookingDAOTest {
         String result = bookingDAO.find(primary_key).toString();
         assertEquals(expResult, result);
     }
-    
 }

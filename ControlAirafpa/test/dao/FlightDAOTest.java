@@ -5,57 +5,37 @@
  */
 package dao;
 
-import data.Flights;
+import model.Flight;
 import java.util.ArrayList;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
  *
- * @author Formation
+ * @author Salim El Moussaoui <salim.elmoussaoui.afpa2017@gmail.com>
+ * @author Cedric DELHOME
+ * @author Laure-Helene Soyeux
  */
 public class FlightDAOTest {
-    
-    public FlightDAOTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
-       /**
+    /**
      * Test of create method, of class FlightDAO.
      */
     @Test
     public void testCreate() {
         System.out.println("create");
         // create object flight    
-        Flights flight = new Flights(0, "MRS", "FNJ",
-                "2017-03-20 05:30:00.0", 400, 275.75, 1, 2, 3, 4, 5, true);
+        Flight flight = new Flight(0, "MRS", "Marseille" , "France",
+            "FNJ", "Pyongyang" , "Corée du Nord",
+            "2017-03-20 05:30:00.0", 400, 275.75, 1, 0, 3, 4, 5, false);
         FlightDAO flightDAO = new FlightDAO();
         // find flight  create 
-        Flights expResult = flightDAO.find(flight.getId());
+        Flight expResult = flightDAO.find(flight.getId());
 
         // if find aita is empty or null
         if (!flightDAO.isValid(expResult)) {           
             // insert flight in table
-            Flights result = flightDAO.create(flight);
+            Flight result = flightDAO.create(flight);
             // find flight
             expResult = flightDAO.find(flight.getId());   
             // delete flight test
@@ -73,16 +53,17 @@ public class FlightDAOTest {
     public void testUpdate() {
         System.out.println("update");
         // create object flight      
-        Flights flightInsert = new Flights(0, "FNJ", "LAS", "2017-03-20 05:30:00",
+        Flight flightInsert = new Flight(0, "FNJ", "Pyongyang" , "Corée du Nord", 
+                "LAS", "Las Vegas" , "USA", "2017-03-20 05:30:00",
                 400, 478.75, 0, 0, 0, 0, 0, false);
         // instatied flightDAO
         FlightDAO flightDAO = new FlightDAO();
         // find flight create 
-        Flights findFlight = flightDAO.find(flightInsert.getId());
+        Flight findFlight = flightDAO.find(flightInsert.getId());
         // if find flight is empty
         if (!flightDAO.isValid(findFlight)) {
             // Insert flight in table
-            Flights resultFlight = flightDAO.create(flightInsert);             
+            Flight resultFlight = flightDAO.create(flightInsert);             
             // find flight
             findFlight = flightDAO.find(resultFlight.getId());
         }
@@ -100,7 +81,7 @@ public class FlightDAOTest {
             findFlight.setPlanned(true);   
 
         // update flight
-        Flights result = flightDAO.update(findFlight);
+        boolean result = flightDAO.update(findFlight);
         boolean expResult = true;
         // delete flight test
         flightDAO.delete(findFlight.getId());
@@ -116,15 +97,16 @@ public class FlightDAOTest {
         FlightDAO flightDAO = new FlightDAO();
 
         // create object flight	
-        Flights flightInsert = new Flights(0, "TLS", "MRS", "2017-03-20 05:30:00",
+        Flight flightInsert = new Flight(0, "TLS", "Toulouse", "France", 
+                "MRS", "Marseille", "France", "2017-03-20 05:30:00",
                 250, 175.75, 1, 2, 3, 4, 5, true);
         // find flight  create 
-        Flights findFlight = flightDAO.find(flightInsert.getId());
+        Flight findFlight = flightDAO.find(flightInsert.getId());
 
         // if find flight is empty
         if (!flightDAO.isValid(findFlight)) {
             // Insert flight in table
-            Flights resultFlight = flightDAO.create(flightInsert);
+            Flight resultFlight = flightDAO.create(flightInsert);
             // find flight
             findFlight = flightDAO.find(resultFlight.getId());
             // delete flight
@@ -141,7 +123,7 @@ public class FlightDAOTest {
     public void testGetdAll() {
         System.out.println("findAll");
         FlightDAO flightDAO = new FlightDAO();
-        ArrayList<Flights> arrayFlight = flightDAO.getall();
+        ArrayList<Flight> arrayFlight = flightDAO.getAll();
         String expResult = "";
         String result = "";
         for (int i = 0; i < arrayFlight.size(); i++) {

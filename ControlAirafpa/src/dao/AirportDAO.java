@@ -10,10 +10,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import data.Airports;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Airport;
+import model.Flight;
+import model.Flight.InOut;
 
-public class AirportDAO extends DAO<Airports, String> {
-  public AirportDAO() {
+/**
+ *
+ * @author Salim El Moussaoui <salim.elmoussaoui.afpa2017@gmail.com>
+ */
+public class AirportDAO extends DAO<Airport, String> {
+
+    public AirportDAO() {
         super();
     }
 
@@ -25,9 +34,9 @@ public class AirportDAO extends DAO<Airports, String> {
      * @return airport object
      */
     @Override
-    public Airports create(Airports airport) {
+    public Airport create(Airport airport) {
         // create aiport empty
-        Airports airportCreate = new Airports();
+        Airport airportCreate = new Airport();
         //check if connect db
         if (this.bddmanager.connect()) {
 
@@ -36,7 +45,7 @@ public class AirportDAO extends DAO<Airports, String> {
                 // create requete 
                 String requete = "INSERT INTO airports (aita,city,country) VALUES (?,?,?)";
                 // prepared requete 
-                PreparedStatement pst = this.bddmanager.getConnection().prepareStatement(requete);
+                PreparedStatement pst = this.bddmanager.getConnectionManager().prepareStatement(requete);
                 // insert value in requete
                 pst.setString(1, airport.getAita());
                 pst.setString(2, airport.getCity());
@@ -67,8 +76,8 @@ public class AirportDAO extends DAO<Airports, String> {
      * @return true is update airport, false isn't update
      */
     @Override
-    public Airports update(Airports airport) {
-        Airports success = new Airports();
+    public boolean update(Airport airport) {
+        boolean success = false;
         //check if connect db
         if (this.bddmanager.connect()) {
 
@@ -77,7 +86,7 @@ public class AirportDAO extends DAO<Airports, String> {
                 // create requete 
                 String requete = "Update airports set city = ?,country = ? WHERE aita LIKE ?";
                 // prepared requete 
-                PreparedStatement pst = this.bddmanager.getConnection().prepareStatement(requete);
+                PreparedStatement pst = this.bddmanager.getConnectionManager().prepareStatement(requete);
                 // insert value in requete
                 pst.setString(1, airport.getCity());
                 pst.setString(2, airport.getCountry());
@@ -86,7 +95,7 @@ public class AirportDAO extends DAO<Airports, String> {
                 int insert = pst.executeUpdate();
                 // if delete in table 
                 if (insert != 0) {
-                    success = this.find(airport.getAita());
+                    success = true;
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -116,7 +125,7 @@ public class AirportDAO extends DAO<Airports, String> {
                 // create requete 
                 String requete = "DELETE FROM airports WHERE aita LIKE ?";
                 // prepared requete 
-                PreparedStatement pst = this.bddmanager.getConnection().prepareStatement(requete);
+                PreparedStatement pst = this.bddmanager.getConnectionManager().prepareStatement(requete);
                 // insert value in requete
                 pst.setString(1, primary_key);
                 // excute delete row in table
@@ -143,23 +152,23 @@ public class AirportDAO extends DAO<Airports, String> {
      * @return all airports
      */
     @Override
-    public ArrayList getall() {
+    public ArrayList getAll() {
         // create array airport empty
-        ArrayList<Airports> listAirport = new ArrayList<>();
+        ArrayList<Airport> listAirport = new ArrayList<>();
         //check if connect db
         if (this.bddmanager.connect()) {
 
             try {
                 // create requete 
                 Statement st = this.bddmanager
-                        .getConnection()
+                        .getConnectionManager()
                         .createStatement();
                 String requete = "SELECT * FROM airports";
                 // excute requete
                 ResultSet rs = st.executeQuery(requete);
                 // insert all airports in array object airport
                 while (rs.next()) {
-                    Airports el = new Airports(
+                    Airport el = new Airport(
                             rs.getString("aita"),
                             rs.getString("city"),
                             rs.getString("country")
@@ -187,15 +196,15 @@ public class AirportDAO extends DAO<Airports, String> {
      * @return airport
      */
     @Override
-    public Airports find(String primary_key) {
+    public Airport find(String primary_key) {
         // create array airport empty
-        Airports airport = new Airports();
+        Airport airport = new Airport();
         //check if connect db
         if (this.bddmanager.connect()) {
 
             try {
                 // create statement for find 
-                Statement st = this.bddmanager.getConnection().createStatement();
+                Statement st = this.bddmanager.getConnectionManager().createStatement();
                 // create requete add primary key
                 String requete = "SELECT * FROM airports WHERE aita LIKE \"" + primary_key + "\"";
                 // excute requete
@@ -226,7 +235,7 @@ public class AirportDAO extends DAO<Airports, String> {
      * @param airport
      * @return false is empty and true is full
      */
-    public boolean isValid(Airports airport) {
+    public boolean isValid(Airport airport) {
         boolean isValid = true;
 
         // if code aita is empty or null
@@ -240,5 +249,7 @@ public class AirportDAO extends DAO<Airports, String> {
             isValid = false;
         }
         return isValid;
-    }  
+    }
+    
+    
 }

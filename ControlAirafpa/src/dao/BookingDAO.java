@@ -11,9 +11,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
-import data.Bookings;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Booking;
+import model.Flight;
 
-public class BookingDAO extends DAO<Bookings, Long> {
+/**
+ *
+ * @author Salim El Moussaoui <salim.elmoussaoui.afpa2017@gmail.com>
+ */
+public class BookingDAO extends DAO<Booking, Long> {
+
     public BookingDAO() {
         super();
     }
@@ -26,9 +34,9 @@ public class BookingDAO extends DAO<Bookings, Long> {
      * @return booking object
      */
     @Override
-    public Bookings create(Bookings booking) {
+    public Booking create(Booking booking) {
 
-        Bookings bookingCreate = new Bookings();
+        Booking bookingCreate = new Booking();
         if (this.bddmanager.connect()) {
             try {
 
@@ -39,7 +47,7 @@ public class BookingDAO extends DAO<Bookings, Long> {
                         + " place\n"
                         + ") VALUES (?,?,?)";
                 // prepared requete and get return generated key
-                PreparedStatement pst = this.bddmanager.getConnection()
+                PreparedStatement pst = this.bddmanager.getConnectionManager()
                         .prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
                 // insert value in requete
                 pst.setLong(1, booking.getUser_id());
@@ -79,8 +87,8 @@ public class BookingDAO extends DAO<Bookings, Long> {
      * @return true is update booking, false isn't update
      */
     @Override
-    public Bookings update(Bookings booking) {
-        Bookings success = new Bookings();
+    public boolean update(Booking booking) {
+        boolean success = false;
 
         if (this.bddmanager.connect()) {
 
@@ -94,7 +102,7 @@ public class BookingDAO extends DAO<Bookings, Long> {
                         + " WHERE id = ?";
                 // prepared requete 
                 PreparedStatement pst = this.bddmanager
-                        .getConnection().prepareStatement(requete);
+                        .getConnectionManager().prepareStatement(requete);
                 // insert value in requete
                 pst.setLong(1, booking.getUser_id());
                 pst.setLong(2, booking.getFlight_id());
@@ -104,11 +112,11 @@ public class BookingDAO extends DAO<Bookings, Long> {
                 int insert = pst.executeUpdate();
                 // if insert in table 
                 if (insert != 0) {
-                     success = this.find(booking.getId());
+                    success = true;
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();
-               
+                return success;
             }
 
         } else {
@@ -134,7 +142,7 @@ public class BookingDAO extends DAO<Bookings, Long> {
                 // create requete 
                 String requete = "DELETE FROM bookings WHERE id = ?";
                 // prepared requete 
-                PreparedStatement pst = this.bddmanager.getConnection()
+                PreparedStatement pst = this.bddmanager.getConnectionManager()
                         .prepareStatement(requete);
                 // insert value in requete
                 pst.setLong(1, primary_key);
@@ -162,15 +170,15 @@ public class BookingDAO extends DAO<Bookings, Long> {
      * @return all bookings
      */
     @Override
-    public ArrayList getall() {
+    public ArrayList getAll() {
         // create array list booking empty
-        ArrayList<Bookings> listBooking = new ArrayList<>();
+        ArrayList<Booking> listBooking = new ArrayList<>();
         if (this.bddmanager.connect()) {
 
             try {
                 // create statement 
                 Statement st = this.bddmanager
-                        .getConnection()
+                        .getConnectionManager()
                         .createStatement();
                 // create requete 
                 String requete = "SELECT * FROM bookings";
@@ -179,7 +187,7 @@ public class BookingDAO extends DAO<Bookings, Long> {
                 // insert all bookings in array object booking
 
                 while (rs.next()) {
-                    Bookings el = new Bookings(
+                    Booking el = new Booking(
                             rs.getLong("id"),
                             rs.getLong("user_id"),
                             rs.getLong("flight_id"),
@@ -208,15 +216,15 @@ public class BookingDAO extends DAO<Bookings, Long> {
      * @return booking
      */
     @Override
-    public Bookings find(Long primary_key) {
+    public Booking find(Long primary_key) {
         // create array booking empty
-        Bookings booking = new Bookings();
+        Booking booking = new Booking();
         //check if connect db
         if (this.bddmanager.connect()) {
 
             try {
                 // create statement for find 
-                Statement st = this.bddmanager.getConnection()
+                Statement st = this.bddmanager.getConnectionManager()
                         .createStatement();
                 // create requete add primary key
                 String requete = "SELECT * FROM bookings WHERE id = " + primary_key;
@@ -249,7 +257,7 @@ public class BookingDAO extends DAO<Bookings, Long> {
      * @param booking
      * @return false is empty and true is full
      */
-    public boolean isValid(Bookings booking) {
+    public boolean isValid(Booking booking) {
         boolean isValid = true;
 
         // if id is empty
@@ -259,5 +267,44 @@ public class BookingDAO extends DAO<Bookings, Long> {
 
         return isValid;
     }
- 
+
+    public ArrayList<Booking> find(Flight flight) {
+        // create array booking empty
+        
+        ArrayList<Booking> alBooking = new ArrayList();
+
+        //check if connect db
+        if (this.bddmanager.connect()) {
+
+            try {
+                // create statement for find 
+                Statement st = this.bddmanager.getConnectionManager()
+                        .createStatement();
+                // create requete add primary key
+                String requete = "SELECT * FROM bookings WHERE id = " + flight.getId();
+                // excute requete
+                ResultSet rs = st.executeQuery(requete);
+                // if result is full
+                if (rs.next()) {
+                    Booking booking = new Booking();             
+                    booking.setId(rs.getLong("id"));
+                    booking.setUser_id(rs.getLong("user_id"));
+                    booking.setFlight_id(rs.getLong("flight_id"));
+                    booking.setPlace(rs.getInt("place"));
+                    
+                    alBooking.add(booking);
+                    
+                }
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                return alBooking;
+            }
+
+        } else {
+            return alBooking;
+        }
+
+        return alBooking;
+    }
 }
